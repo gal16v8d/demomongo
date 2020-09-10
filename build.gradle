@@ -15,6 +15,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'jacoco'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply from : 'docker.gradle'
@@ -22,6 +23,16 @@ apply from : 'docker.gradle'
 compileJava {
     sourceCompatibility = "${javaVersion}"
     targetCompatibility = "${javaVersion}"
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+        
+    tasks.withType(Test) {
+       systemProperty "file.encoding", "UTF-8"
+    }
 }
 
 jar {
@@ -44,4 +55,32 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+}
+
+test {
+	useJUnitPlatform()
+	ignoreFailures = false
+	jacoco {
+		//append = false
+		destinationFile = file("jacoco/jacocoTest.exec")
+	}
+	reports.junitXml.destination = file("jacoco/test-results")
+	testLogging.showStandardStreams = true
+   	testLogging.exceptionFormat = 'full'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
+jacocoTestReport.dependsOn(test)
+
+plugins.withType(JacocoPlugin) {
+  tasks["test"].finalizedBy 'jacocoTestReport'
+}
+
+task publish(type: GradleBuild) {
+     tasks = ['clean', 'build', 'test', 'jacocoTestReport', 'jar']
 }

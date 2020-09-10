@@ -23,7 +23,7 @@ public class LoggerConfig {
 		o = joinPoint.proceed();
 		log.info("Despues de: {}", nombreJP);
 		long timeTaken = System.currentTimeMillis() - startTime;
-		log.info("La petición {} tomo {} ms", nombreJP, timeTaken);
+		log.info("La peticiÃ³n {} tomo {} ms", nombreJP, timeTaken);
 		return o;
 	}
 
