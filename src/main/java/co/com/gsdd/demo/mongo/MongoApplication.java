@@ -1,18 +1,18 @@
-package com.ejemplo.demo;
+package co.com.gsdd.demo.mongo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
-import com.ejemplo.demo.constantes.ConstantesDemo;
+import co.com.gsdd.demo.mongo.constants.DemoConstants;
 
 @SpringBootApplication
 @EnableReactiveMongoRepositories
-@ComponentScan({ ConstantesDemo.PAQUETE_CONFIG, ConstantesDemo.PAQUETE_CONTROLADOR, ConstantesDemo.PAQUETE_SERVICIO })
-public class MongoAplicacion {
+@ComponentScan({ DemoConstants.CONFIG_PKG, DemoConstants.CONTROLLER_PKG, DemoConstants.SERVICE_PKG })
+public class MongoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MongoAplicacion.class, args);
+		SpringApplication.run(MongoApplication.class, args);
 	}
 }

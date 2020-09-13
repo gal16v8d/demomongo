@@ -1,29 +1,15 @@
-buildscript {
-	ext {
-		springBootVersion = '2.0.3.RELEASE'
-		swaggerVersion = '2.9.0'
-		javaVersion = '1.8'
-	}
-	repositories {
-    	mavenCentral()
-    	jcenter()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+plugins {
+	id 'org.springframework.boot' version '2.0.3.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+	id 'jacoco'
 }
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'jacoco'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 apply from : 'docker.gradle'
 
-compileJava {
-    sourceCompatibility = "${javaVersion}"
-    targetCompatibility = "${javaVersion}"
-}
+group = 'co.com.gsdd'
+version = '1.0.001'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 allprojects {
     tasks.withType(JavaCompile) {
@@ -35,11 +21,15 @@ allprojects {
     }
 }
 
+repositories {
+	mavenCentral()
+}
+
 jar {
     baseName = "demomongo"
-    group    = "com.ejemplo.demo"
-    version  = "0.0.1-SNAPSHOT"
-    manifest { attributes "Main-Class": "com.ejemplo.demo.MongoApplication" }
+    group    = "co.com.gsdd"
+    version  = "1.0.001"
+    manifest { attributes "Main-Class": "co.com.gsdd.demo.mongo.MongoApplication" }
 }
 
 dependencies {
@@ -47,8 +37,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
-	compile("io.springfox:springfox-swagger2:${swaggerVersion}")
-	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+	compile("io.springfox:springfox-swagger2:2.9.2")
+	compile("io.springfox:springfox-swagger-ui:2.9.2")
 	compile('org.aspectj:aspectjweaver:1.8.13')
 	compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'

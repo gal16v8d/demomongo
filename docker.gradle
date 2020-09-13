@@ -1,10 +1,11 @@
+// ref: https://bmuschko.github.io/gradle-docker-plugin/
 buildscript {
 	ext {
-		gradleDockerVersion   = '3.2.5'
+		gradleDockerVersion   = '6.6.1'
 	}
 	repositories {
-		jcenter()
     	mavenCentral()
+		jcenter()
 	}
 	dependencies {
 		classpath("com.bmuschko:gradle-docker-plugin:${gradleDockerVersion}")
@@ -17,41 +18,31 @@ apply plugin: com.bmuschko.gradle.docker.DockerRemoteApiPlugin
 import com.bmuschko.gradle.docker.tasks.image.*    
 import com.bmuschko.gradle.docker.tasks.container.*
 
-def containerId
-
 task createDockerfile(type: Dockerfile) {
-    destFile = project.file('build/docker/Dockerfile')
-    from       'openjdk:8'
-    String dockerProjFolder = project.projectDir.name
-    runCommand("mkdir -p /app/springboot/${dockerProjFolder} && mkdir -p /app/springboot/${dockerProjFolder}/conf")
-    addFile "demomongo.jar", "/app/springboot/${dockerProjFolder}/"
-    exposePort 8080
-    workingDir("/app/springboot/${dockerProjFolder}")
-    entryPoint 'java', '-jar', "/app/springboot/${dockerProjFolder}/demomongo.jar"
+	from('openjdk:8')
+	copyFile('demomongo-1.0.001.jar', '/app/demomongo.jar')
+    entryPoint('java')
+    defaultCommand('-jar', '/app/demomongo.jar')
+    exposePort(8091)
 }
 
 task buildDockerImage(type: DockerBuildImage) {
     dependsOn createDockerfile, build
-    dockerFile = createDockerfile.destFile
-    inputDir = dockerFile.parentFile
-    tag = "demomongo"
-    doFirst {
-      copy { from "$project.projectDir/build/lib" into 'build/docker' }
-    }
+    images.add('gsdd/demomongo:latest')
 }
 
 task createDockerContainer(type: DockerCreateContainer) {
     dependsOn buildDockerImage
-    containerName = jar.baseName
-    targetImageId { buildDockerImage.getImageId() }
-    portBindings = ['8080:8080']
+    targetImageId buildDockerImage.getImageId()
+    hostConfig.portBindings = ['8091:8091']
+    hostConfig.autoRemove = true
 }
 
 task startDockerContainer(type: DockerStartContainer) {
     dependsOn createDockerContainer
-    targetContainerId { createDockerContainer.getContainerId() }
+    targetContainerId createDockerContainer.getContainerId()
 }
 
 task stopDockerContainer(type: DockerStopContainer) {
-    targetContainerId { createDockerContainer.getContainerId() }
+    targetContainerId createDockerContainer.getContainerId()
 }
