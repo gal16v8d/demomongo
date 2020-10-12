@@ -19,10 +19,15 @@ public class LoggerConfig {
 		String nombreJP = joinPoint.getSignature().getName();
 		long startTime = System.currentTimeMillis();
 		log.info("Before: {}", nombreJP);
-		o = joinPoint.proceed();
-		log.info("After: {}", nombreJP);
-		long timeTaken = System.currentTimeMillis() - startTime;
-		log.info("Execution of {} tooks {} ms", nombreJP, timeTaken);
+		try {
+			o = joinPoint.proceed();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			log.info("After: {}", nombreJP);
+			long timeTaken = System.currentTimeMillis() - startTime;
+			log.info("Execution of {} tooks {} ms", nombreJP, timeTaken);
+		}
 		return o;
 	}
 
