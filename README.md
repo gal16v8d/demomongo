@@ -2,7 +2,7 @@
 
 ### Swagger
 
-http://localhost:8091/swagger-ui.html
+http://localhost:8091/swagger-ui/
 
 ### Gradle docker plugin
 
