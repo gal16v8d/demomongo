@@ -2,7 +2,6 @@ package co.com.gsdd.demo.mongo.controllers;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,19 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.gsdd.demo.mongo.persistence.entities.Employee;
 import co.com.gsdd.demo.mongo.services.EmployeeService;
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
 
 	private final EmployeeService service;
-
-	@Autowired
-	public EmployeeController(EmployeeService service) {
-		this.service = service;
-	}
 
 	@GetMapping("/{id}")
 	public Mono<ResponseEntity<Employee>> findById(@PathVariable("id") Long id) {
