@@ -19,8 +19,8 @@ import com.bmuschko.gradle.docker.tasks.image.*
 import com.bmuschko.gradle.docker.tasks.container.*
 
 task createDockerfile(type: Dockerfile) {
-	from('openjdk:8')
-	copyFile('demomongo-1.0.001.jar', '/app/demomongo.jar')
+	from('openjdk:17.0')
+	copyFile('demomongo-2.0.1.jar', '/app/demomongo.jar')
     entryPoint('java')
     defaultCommand('-jar', '/app/demomongo.jar')
     exposePort(8091)

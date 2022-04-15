@@ -1,0 +1,64 @@
+def jacocoVersion = '0.8.7'
+
+jacoco {
+	toolVersion = jacocoVersion
+	reportsDirectory = layout.buildDirectory.file('reports/jacoco').get().asFile
+}
+
+jacocoTestReport {
+	additionalSourceDirs.from = files(sourceSets.main.allSource.srcDirs)
+	classDirectories.from = files(sourceSets.main.output)
+	sourceDirectories.from = files(sourceSets.main.allSource.srcDirs)
+	
+	reports {
+		xml.required = true
+		csv.required = false
+		html.required = true
+		html.destination = layout.buildDirectory.file('reports/jacoco/html').get().asFile
+	}
+}
+
+def jacocoExcludes = [
+	'com/gsdd/knowledgedb/constants/*',
+	'com/gsdd/knowledgedb/domain/*'
+]
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			excludes = jacocoExcludes
+			limit {
+				counter = 'LINE'
+				value = 'COVEREDRATIO'
+				minimum = 0.00
+			}
+		}
+		
+		rule {
+			element = 'CLASS'
+			excludes = jacocoExcludes
+			limit {
+				counter = 'BRANCH'
+				value = 'COVEREDRATIO'
+				minimum = 0.00
+			}
+		}
+	}
+	
+	afterEvaluate {
+		classDirectories.from = files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: jacocoExcludes)
+		})
+	}
+}
+
+test {
+	jacoco {
+		destinationFile = layout.buildDirectory.file('reports/jacoco/jacocoTest.exec').get().asFile
+	}
+}
+
+test.finalizedBy {
+	project.tasks.jacocoTestCoverageVerification
+	project.tasks.jacocoTestReport
+}
