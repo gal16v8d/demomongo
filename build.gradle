@@ -11,8 +11,11 @@ plugins {
 	id 'com.diffplug.spotless' version '6.4.2'
 	// Dependency scan for CVE vulnerabilities
 	id 'org.owasp.dependencycheck' version '7.0.4.1'
+	// Code check
+	id 'checkstyle'
 }
 
+apply from: 'gradle/checkstyle.gradle'
 apply from: 'gradle/dependencyCheck/dependencyCheck.gradle'
 apply from: 'gradle/docker.gradle'
 apply from: 'gradle/jacoco.gradle'
