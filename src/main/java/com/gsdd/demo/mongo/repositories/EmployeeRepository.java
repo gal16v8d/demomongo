@@ -1,8 +1,8 @@
 package com.gsdd.demo.mongo.repositories;
 
+import com.gsdd.demo.mongo.persistence.entities.Employee;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
-import com.gsdd.demo.mongo.persistence.entities.Employee;
 import reactor.core.publisher.Mono;
 
 @Repository

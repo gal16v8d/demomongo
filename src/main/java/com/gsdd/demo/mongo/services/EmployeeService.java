@@ -1,12 +1,11 @@
 package com.gsdd.demo.mongo.services;
 
-import org.springframework.stereotype.Service;
 import com.gsdd.demo.mongo.persistence.entities.Employee;
 import com.gsdd.demo.mongo.repositories.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
 
 @RequiredArgsConstructor
 @Service
@@ -41,5 +40,4 @@ public class EmployeeService {
   public Flux<Employee> findAll() {
     return employeeRepository.findAll();
   }
-
 }

@@ -17,5 +17,4 @@ public final class DemoConstants {
   public static final String CONTROLLER_PKG = BASE_PKG + ".controllers";
   public static final String REPO_PKG = BASE_PKG + ".repositories";
   public static final String SERVICE_PKG = BASE_PKG + ".services";
-
 }

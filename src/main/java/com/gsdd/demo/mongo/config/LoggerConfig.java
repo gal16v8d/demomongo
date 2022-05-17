@@ -1,11 +1,11 @@
 package com.gsdd.demo.mongo.config;
 
+import com.gsdd.demo.mongo.constants.DemoConstants;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.annotation.Configuration;
-import com.gsdd.demo.mongo.constants.DemoConstants;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Aspect
@@ -29,5 +29,4 @@ public class LoggerConfig {
     }
     return o;
   }
-
 }

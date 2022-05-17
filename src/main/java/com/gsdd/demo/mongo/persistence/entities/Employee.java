@@ -1,7 +1,5 @@
 package com.gsdd.demo.mongo.persistence.entities;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import com.gsdd.demo.mongo.constants.DemoConstants;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,6 +8,8 @@ import lombok.Builder.Default;
 import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 // Using @Document allows to use a different collection name,
 // defaults to class name.
@@ -21,11 +21,7 @@ import lombok.NoArgsConstructor;
 @Document(collection = "Empleado")
 public class Employee {
 
-  @Id
-  @Default
-  private Long employeeId = System.nanoTime();
+  @Id @Default private Long employeeId = System.nanoTime();
   private String name;
-  @Default
-  private String app = DemoConstants.NO_SQL;
-
+  @Default private String app = DemoConstants.NO_SQL;
 }

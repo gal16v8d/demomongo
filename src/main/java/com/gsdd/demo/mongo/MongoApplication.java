@@ -1,10 +1,10 @@
 package com.gsdd.demo.mongo;
 
+import com.gsdd.demo.mongo.constants.DemoConstants;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
-import com.gsdd.demo.mongo.constants.DemoConstants;
 
 @SpringBootApplication
 @EnableReactiveMongoRepositories

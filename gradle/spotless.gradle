@@ -15,7 +15,7 @@ spotless {
     endWithNewline()
   }
   java {
-    googleJavaFormat('1.15.0').aosp().reflowLongStrings()
+    googleJavaFormat('1.15.0').reflowLongStrings()
     trimTrailingWhitespace()
 	endWithNewline()
 	removeUnusedImports()
