@@ -23,7 +23,7 @@ apply from: 'gradle/spotless.gradle'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
@@ -42,7 +42,6 @@ repositories {
 }
 
 jar {
-    baseName = "demomongo"
     group    = "com.gsdd"
     version  = "2.0.1"
     manifest { attributes "Main-Class": "com.gsdd.demo.mongo.MongoApplication" }
