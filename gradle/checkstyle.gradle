@@ -1,4 +1,4 @@
-def checkstyleVersion = '10.0'
+def checkstyleVersion = '10.18.1'
 
 checkstyle {
 	toolVersion = "${checkstyleVersion}"

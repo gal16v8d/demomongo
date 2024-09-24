@@ -1,4 +1,4 @@
-def jacocoVersion = '0.8.8'
+def jacocoVersion = '0.8.12'
 
 jacoco {
 	toolVersion = jacocoVersion
@@ -14,13 +14,13 @@ jacocoTestReport {
 		xml.required = true
 		csv.required = false
 		html.required = true
-		html.destination = layout.buildDirectory.file('reports/jacoco/html').get().asFile
+		html.outputLocation = layout.buildDirectory.file('reports/jacoco/html').get().asFile
 	}
 }
 
 def jacocoExcludes = [
-	'com/gsdd/knowledgedb/constants/*',
-	'com/gsdd/knowledgedb/domain/*'
+	'com/gsdd/demo/mongo/constants/*',
+	'com/gsdd/demo/mongo/persistence/entities/*'
 ]
 
 jacocoTestCoverageVerification {
